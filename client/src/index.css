@@ -1,0 +1,249 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ─────────────────────────────────────────── */
+:root {
+  --ink:        #0F0E0D;
+  --parchment:  #F5F0E8;
+  --parchment2: #EDE8DC;
+  --saffron:    #E8832A;
+  --gold:       #C4943A;
+  --gold-light: #D4A85A;
+  --cream:      #FAF7F2;
+  --muted:      #7A7068;
+  --border:     #D8D0C4;
+  --shadow:     rgba(15,14,13,0.12);
+  --radius:     8px;
+  --radius-lg:  16px;
+}
+
+/* ─── Base ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--cream);
+  color: var(--ink);
+  font-family: 'Noto Sans', sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Typography ─────────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--saffron); }
+
+/* ─── Paper Texture Effect ───────────────────────────────────── */
+.paper-card {
+  background: var(--parchment);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px var(--shadow), inset 0 0 0 1px rgba(255,255,255,0.5);
+  background-image:
+    radial-gradient(ellipse at 20% 80%, rgba(196,148,58,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(232,131,42,0.03) 0%, transparent 60%);
+  position: relative;
+  overflow: hidden;
+}
+
+.paper-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--parchment2); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* ─── Buttons ────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--saffron);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(232,131,42,0.35);
+}
+.btn-primary:hover {
+  background: #d4741e;
+  box-shadow: 0 4px 16px rgba(232,131,42,0.45);
+  transform: translateY(-1px);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover {
+  background: var(--parchment);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: #fff;
+}
+.btn-gold:hover {
+  background: #b8862e;
+  transform: translateY(-1px);
+}
+
+/* ─── Badge ──────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.badge-saffron  { background: rgba(232,131,42,0.15); color: #c0601a; border: 1px solid rgba(232,131,42,0.3); }
+.badge-gold     { background: rgba(196,148,58,0.15); color: #8a6020; border: 1px solid rgba(196,148,58,0.3); }
+.badge-muted    { background: rgba(122,112,104,0.1); color: var(--muted); border: 1px solid var(--border); }
+.badge-ink      { background: var(--ink); color: var(--cream); }
+
+/* ─── Input ──────────────────────────────────────────────────── */
+.input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--ink);
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+.input:focus {
+  border-color: var(--saffron);
+  box-shadow: 0 0 0 3px rgba(232,131,42,0.15);
+}
+.input::placeholder { color: var(--muted); }
+
+/* ─── Animations ─────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.animate-fade-in-up { animation: fadeInUp 0.5s ease forwards; }
+.animate-fade-in    { animation: fadeIn 0.4s ease forwards; }
+
+.skeleton {
+  background: linear-gradient(90deg, var(--parchment2) 25%, var(--parchment) 50%, var(--parchment2) 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: var(--radius);
+}
+
+/* ─── Quill Editor Overrides ─────────────────────────────────── */
+.ql-container {
+  font-family: 'Noto Sans', sans-serif !important;
+  font-size: 1.05rem !important;
+  border: none !important;
+}
+.ql-toolbar {
+  border: none !important;
+  border-bottom: 1px solid var(--border) !important;
+  background: var(--parchment) !important;
+  border-radius: var(--radius) var(--radius) 0 0 !important;
+  padding: 8px 12px !important;
+}
+.ql-editor {
+  min-height: 420px;
+  color: var(--ink);
+  line-height: 1.9;
+  padding: 24px 32px !important;
+}
+.ql-editor::before { color: var(--muted) !important; }
+.ql-snow .ql-stroke { stroke: var(--muted) !important; }
+.ql-snow .ql-fill  { fill: var(--muted) !important; }
+.ql-snow .ql-picker { color: var(--muted) !important; }
+.ql-snow button:hover .ql-stroke,
+.ql-snow .ql-active .ql-stroke { stroke: var(--saffron) !important; }
+
+/* ─── Star Rating ────────────────────────────────────────────── */
+.stars { display: flex; gap: 2px; }
+.star {
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.15s;
+  color: var(--border);
+}
+.star.filled { color: var(--gold); }
+.star:hover  { transform: scale(1.2); }
+
+/* ─── Save Status Indicator ──────────────────────────────────── */
+.save-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 999px;
+  transition: all 0.3s;
+}
+.save-indicator.saved   { background: rgba(74,180,74,0.12); color: #2d7a2d; }
+.save-indicator.saving  { background: rgba(232,131,42,0.12); color: #c06010; }
+.save-indicator.unsaved { background: rgba(220,50,50,0.1); color: #a03020; }
+
+/* ─── Layout Helpers ─────────────────────────────────────────── */
+.container-xl { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+.container-md  { max-width: 860px;  margin: 0 auto; padding: 0 24px; }
+
+/* ─── Divider ────────────────────────────────────────────────── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 24px 0;
+}
+
+/* ─── Page transitions ───────────────────────────────────────── */
+.page-enter {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: none;
+  transition: all 0.35s ease;
+}
